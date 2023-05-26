@@ -1,15 +1,18 @@
 package com.spring.bean;
 
+import com.spring.anno.Di;
 import com.spring.anno.MyBean;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class AnnotationApplicationContext implements ApplicationContext{
     //創建map集合,放bean對象
@@ -45,6 +48,44 @@ public class AnnotationApplicationContext implements ApplicationContext{
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+
+        //屬性注入
+        loadDi();
+    }
+
+    //屬性注入
+    private void loadDi() {
+        //1 實例化的對象都在beanFactory的map集合裡面
+        //遍歷map集合
+        Set<Map.Entry<Class, Object>> entries = beanFactory.entrySet();
+
+        for (Map.Entry<Class, Object> entry : entries){
+            //2 獲取map集合每個對象(value), 每個對象屬性獲取到
+            Object obj = entry.getValue();
+            //獲取對象
+            Class<?> clazz = obj.getClass();
+            //獲取每個對象中的屬性
+            Field[] declaredFields = clazz.getDeclaredFields();
+
+            //3 遍歷得到每個對象屬性的陣列, 得到每個屬性
+            for (Field field : declaredFields){
+                //4 判斷屬性上面是否有@Di註解
+                Di annotation = field.getAnnotation(Di.class);
+                if (annotation != null){
+                    //如果私有屬性, 設置可以給值
+                    field.setAccessible(true);
+
+                    //5 如果有@Di註解, 把對象進設置(注入進去)
+                    try {
+                        System.out.println("obj = "+ obj);
+                        System.out.println("field.getType() = "+ field.getType());
+                        field.set(obj, beanFactory.get(field.getType()));
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
         }
     }
 
