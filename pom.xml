@@ -11,6 +11,7 @@
     <modules>
         <module>spring-anno</module>
         <module>spring-self</module>
+        <module>spring6-aop</module>
     </modules>
 
     <properties>
@@ -41,6 +42,20 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
             <version>2.19.0</version>
+        </dependency>
+
+        <!--spring aop依赖-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>6.0.2</version>
+        </dependency>
+
+        <!--spring aspects依赖-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>6.0.2</version>
         </dependency>
     </dependencies>
 
