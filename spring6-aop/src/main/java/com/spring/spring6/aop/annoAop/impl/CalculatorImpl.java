@@ -11,6 +11,8 @@ public class CalculatorImpl implements Calculator {
 
         System.out.println("add result = " + result);
 
+        //測試異常通知
+//        int a = 1/0;
         return result;
     }
 
