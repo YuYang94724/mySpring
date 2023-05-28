@@ -12,6 +12,7 @@
         <module>spring-anno</module>
         <module>spring-self</module>
         <module>spring6-aop</module>
+        <module>spring6-junit</module>
     </modules>
 
     <properties>
@@ -25,6 +26,22 @@
             <artifactId>spring-context</artifactId>
             <version>6.0.2</version>
         </dependency>
+
+        <!--        spring 整合 junit相關依賴-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>6.0.2</version>
+        </dependency>
+
+        <!-- junit4测试 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+        </dependency>
+
+
         <!--        junit-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -38,6 +55,7 @@
             <artifactId>log4j-core</artifactId>
             <version>2.19.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
